@@ -1,0 +1,380 @@
+/**
+ * Security Headers — admin styles.
+ * WP-admin-native card UI per docs/PLUGIN_PRIMER.md.
+ */
+
+.bssh-wrap {
+    /* Colors */
+    --bssh-bg:           #f0f0f1;
+    --bssh-card-bg:      #fff;
+    --bssh-text:         #1e1e1e;
+    --bssh-text-body:    #3c434a;
+    --bssh-text-muted:   #757575;
+    --bssh-border:       #e2e4e7;
+    --bssh-table-th-bg:  #f0f0f0;
+    --bssh-accent:       #2271b1;
+    --bssh-success:      #1e8a3e;
+    --bssh-error:        #d63638;
+    --bssh-warning:      #b26200;
+
+    /* Card surface */
+    --bssh-card-radius:  4px;
+    --bssh-card-shadow:  0 0 0 1px rgba(0, 0, 0, 0.1);
+    --bssh-card-pad:     24px;
+    --bssh-card-hdr-pad: 16px 24px;
+    --bssh-card-gap:     24px;
+
+    /* Form controls */
+    --bssh-input-height: 44px;
+    --bssh-input-pad:    0 12px;
+    --bssh-input-radius: 4px;
+    --bssh-input-border: 1px solid #c3c4c7;
+
+    max-width: 840px;
+    margin-right: 20px;
+    color: var(--bssh-text-body);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.bssh-header {
+    position: sticky;
+    top: 32px;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--bssh-card-bg);
+    box-shadow: var(--bssh-card-shadow);
+    border-radius: var(--bssh-card-radius);
+    margin: 20px 0 var(--bssh-card-gap);
+}
+@media (max-width: 782px) {
+    .bssh-header { top: 46px; }
+}
+.bssh-header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--bssh-text);
+}
+.bssh-pill {
+    flex: none;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+}
+.bssh-pill.is-on  { background: #edfaef; color: var(--bssh-success);    box-shadow: inset 0 0 0 1px rgba(30, 138, 62, 0.25); }
+.bssh-pill.is-off { background: #f6f7f7; color: var(--bssh-text-muted); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
+
+/* Notices ----------------------------------------------------------------- */
+
+.bssh-notice {
+    background: var(--bssh-card-bg);
+    box-shadow: var(--bssh-card-shadow);
+    border-left: 4px solid var(--bssh-accent);
+    border-radius: var(--bssh-card-radius);
+    padding: 12px 16px;
+    margin: 0 0 var(--bssh-card-gap);
+}
+.bssh-notice p { margin: 0; }
+.bssh-notice.is-success { border-left-color: var(--bssh-success); }
+.bssh-notice.is-error   { border-left-color: var(--bssh-error); }
+.bssh-notice.is-warning { border-left-color: var(--bssh-warning); }
+
+/* Cards ------------------------------------------------------------------- */
+
+.bssh-card {
+    background: var(--bssh-card-bg);
+    border: 0;
+    border-radius: var(--bssh-card-radius);
+    box-shadow: var(--bssh-card-shadow);
+    margin: 0 0 var(--bssh-card-gap);
+}
+.bssh-card-header {
+    padding: var(--bssh-card-hdr-pad);
+    background: transparent;
+    border-bottom: 1px solid var(--bssh-border);
+    border-radius: var(--bssh-card-radius) var(--bssh-card-radius) 0 0;
+}
+.bssh-card-header h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bssh-text);
+}
+.bssh-card-body { padding: var(--bssh-card-pad); }
+
+/* Callouts inside a card -------------------------------------------------- */
+
+.bssh-callout {
+    padding: 12px 16px;
+    margin: 0 0 24px;
+    border-left: 4px solid var(--bssh-text-muted);
+    border-radius: var(--bssh-input-radius);
+    background: #f6f7f7;
+}
+.bssh-callout.is-warning { border-left-color: var(--bssh-warning); background: #fcf9f2; }
+.bssh-callout.is-error   { border-left-color: var(--bssh-error);   background: #fcf0f1; }
+.bssh-callout p { margin: 0 0 8px; line-height: 1.5; }
+.bssh-callout p:last-child { margin-bottom: 0; }
+
+/* Fields ------------------------------------------------------------------ */
+
+.bssh-field { margin: 0 0 24px; }
+.bssh-field:last-child { margin-bottom: 0; }
+
+/* :not(.bssh-toggle) matters — without it this rule outranks .bssh-toggle on
+   specificity (0,1,1 vs 0,1,0), forcing the toggle label to display:block and
+   collapsing the switch track to an inline element with no size. */
+.bssh-field > label:not(.bssh-toggle) {
+    display: block;
+    margin: 0 0 6px;
+    font-weight: 600;
+    color: var(--bssh-text);
+}
+
+.bssh-sublabel {
+    display: block;
+    margin: 0 0 6px;
+    font-weight: 600;
+    color: var(--bssh-text);
+}
+
+.bssh-field select:not([multiple]) {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    /* height, not min-height — native chrome pushes min-height inputs past 44px */
+    height: var(--bssh-input-height);
+    padding: var(--bssh-input-pad);
+    border: var(--bssh-input-border);
+    border-radius: var(--bssh-input-radius);
+    background: #fff;
+    color: var(--bssh-text);
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.bssh-field textarea.bssh-code {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border: var(--bssh-input-border);
+    border-radius: var(--bssh-input-radius);
+    background: #fff;
+    color: var(--bssh-text);
+    font-family: Menlo, Consolas, monaco, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    resize: vertical;
+    margin: 0;
+    tab-size: 4;
+}
+.bssh-field textarea.bssh-code:focus {
+    border-color: var(--bssh-accent);
+    box-shadow: 0 0 0 1px var(--bssh-accent);
+    outline: 2px solid transparent;
+}
+
+.bssh-help {
+    margin: 8px 0 0;
+    color: var(--bssh-text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+.bssh-help strong { color: var(--bssh-text-body); }
+.bssh-lede { margin: 0 0 24px; }
+
+/* Toggle ------------------------------------------------------------------ */
+
+.bssh-field > label.bssh-toggle,
+.bssh-toggle {
+    position: relative;   /* contain the absolutely-positioned checkbox */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    cursor: pointer;
+    user-select: none;
+}
+/* Visually hidden but still focusable and still announced by screen readers. */
+.bssh-toggle input[type="checkbox"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+.bssh-toggle-track {
+    flex: none;
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 22px;
+    border-radius: 999px;
+    background: #c3c4c7;
+    transition: background 0.15s ease-in-out;
+}
+.bssh-toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.15s ease-in-out;
+}
+.bssh-toggle input:checked + .bssh-toggle-track { background: var(--bssh-accent); }
+.bssh-toggle input:checked + .bssh-toggle-track .bssh-toggle-thumb { transform: translateX(18px); }
+.bssh-toggle input:focus-visible + .bssh-toggle-track { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--bssh-accent); }
+.bssh-toggle-label { font-weight: 600; color: var(--bssh-text); }
+
+.bssh-field-toggle .bssh-help { margin-left: 50px; }
+.bssh-field-toggle .bssh-dependent { margin-left: 50px; }
+
+/* Dependent blocks -------------------------------------------------------- */
+
+.bssh-dependent {
+    margin-top: 16px;
+    padding-left: 16px;
+    border-left: 2px solid var(--bssh-border);
+}
+.bssh-dependent[hidden] { display: none; }
+
+/* Feature checklist ------------------------------------------------------- */
+
+.bssh-checklist {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.bssh-checklist legend { padding: 0; }
+
+.bssh-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--bssh-border);
+    cursor: pointer;
+}
+.bssh-check:last-child { border-bottom: 0; }
+.bssh-check input[type="checkbox"] {
+    flex: none;
+    margin: 2px 0 0;
+}
+.bssh-check-text { display: block; }
+.bssh-check-label {
+    font-weight: 600;
+    color: var(--bssh-text);
+    margin-right: 6px;
+}
+.bssh-check code {
+    background: #f6f7f7;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 11px;
+    color: var(--bssh-text-muted);
+}
+.bssh-check-warn {
+    display: block;
+    margin-top: 3px;
+    color: var(--bssh-warning);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Results table ----------------------------------------------------------- */
+
+.bssh-table {
+    width: 100%;
+    margin: 16px 0 0;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.bssh-table th,
+.bssh-table td {
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--bssh-border);
+    word-break: break-word;
+}
+.bssh-table thead th {
+    background: var(--bssh-table-th-bg);
+    font-weight: 600;
+    color: var(--bssh-text);
+    white-space: nowrap;
+}
+.bssh-table tbody th {
+    font-weight: 400;
+    white-space: nowrap;
+}
+.bssh-table code {
+    background: transparent;
+    padding: 0;
+    font-size: 11px;
+    color: var(--bssh-text-body);
+}
+.bssh-table tbody th code { color: var(--bssh-text); }
+.bssh-table tr.is-absent th code,
+.bssh-table tr.is-absent td { color: var(--bssh-text-muted); }
+
+.bssh-muted { color: var(--bssh-text-muted); }
+
+.bssh-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: #f0f6fc;
+    color: var(--bssh-accent);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.bssh-tag.is-warning { background: #fcf9f2; color: var(--bssh-warning); }
+
+.bssh-result-meta {
+    margin: 12px 0 0;
+    color: var(--bssh-text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Generated header preview ------------------------------------------------ */
+
+.bssh-preview {
+    margin: 0;
+    padding: 12px 16px;
+    border-radius: var(--bssh-input-radius);
+    background: #f6f7f7;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.07);
+    font-family: Menlo, Consolas, monaco, monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--bssh-text-body);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+}
+
+/* Actions ----------------------------------------------------------------- */
+
+.bssh-actions { margin: 0 0 var(--bssh-card-gap); }
+.bssh-actions .button-large { height: var(--bssh-input-height); padding: 0 24px; }
