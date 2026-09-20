@@ -171,7 +171,7 @@ $on_count = count( $preview_headers );
                         <span class="bssh-toggle-label"><?php esc_html_e( 'X-Content-Type-Options', 'bs-security-headers' ); ?></span>
                     </label>
                     <p class="bssh-help">
-                        <?php esc_html_e( 'Stops the browser guessing at a file type and running something as a script that was not meant to be one. Off by default because Kinsta and xCloud both already send it, and there is no point two things sending the same header. Switch it on if the check below shows it missing.', 'bs-security-headers' ); ?>
+                        <?php esc_html_e( 'Stops the browser guessing at a file type and running something as a script that was not meant to be one. Off by default because Kinsta and xCloud both already send it, and there is no point two things sending the same header. Switch it on only if the check below, run on the live site, shows it missing.', 'bs-security-headers' ); ?>
                     </p>
                 </div>
 
@@ -273,6 +273,13 @@ $on_count = count( $preview_headers );
             <p><a class="button" rel="nofollow" href="<?php echo esc_url( $probe_url ); ?>"><?php esc_html_e( 'Check what this site sends', 'bs-security-headers' ); ?></a></p>
 
             <?php if ( $probe ) : ?>
+
+                <?php if ( ! empty( $probe['local'] ) ) : ?>
+                    <div class="bssh-callout is-warning">
+                        <p><strong><?php esc_html_e( 'This is a local development site.', 'bs-security-headers' ); ?></strong>
+                        <?php esc_html_e( 'The server column below describes whatever is serving this site on your machine, not the host the client site runs on. Local sends none of these headers, so every one reads as missing here even where Kinsta or xCloud would send it. Do not use this reading to decide what to switch on for a live site.', 'bs-security-headers' ); ?></p>
+                    </div>
+                <?php endif; ?>
 
                 <?php foreach ( (array) $probe['errors'] as $line ) : ?>
                     <div class="bssh-callout is-error"><p><?php echo esc_html( $line ); ?></p></div>

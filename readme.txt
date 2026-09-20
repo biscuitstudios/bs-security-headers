@@ -4,7 +4,7 @@ Tags: security headers, csp, hsts, permissions policy, referrer policy
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,15 @@ as-is, with no support. Forks welcome.
 3. Activate. The three safe headers start sending straight away.
 
 == Changelog ==
+
+= 0.1.1 =
+* Fix: the check screen now says plainly when it has been run against a local
+  development site. Local serves none of these headers, so every one reads as
+  missing there even where the live host sends it, and the screen presented that
+  as an authoritative reading of what "your server" does.
+* Change: the X-Content-Type-Options help no longer says to switch it on if the
+  check shows the header missing. That is only sound advice when the check was
+  run against the live site, and it now says so.
 
 = 0.1.0 =
 * New: sends Referrer-Policy, Permissions-Policy and X-Frame-Options from the

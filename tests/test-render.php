@@ -39,6 +39,8 @@ function wp_unslash( $v )             { return is_string( $v ) ? stripslashes( $
 function is_ssl()                     { return $GLOBALS['is_ssl'] ?? true; }
 function get_current_user_id()        { return 1; }
 function admin_url( $p = '' )         { return 'https://example.test/wp-admin/' . $p; }
+function home_url( $p = '' )          { return ( $GLOBALS['home'] ?? 'https://example.test' ) . $p; }
+function wp_parse_url( $u, $c = -1 )  { return parse_url( $u, $c ); }
 function human_time_diff( $from, $to = 0 ) { return '2 minutes'; }
 function wp_nonce_field( $a )         { echo '<input type="hidden" name="_wpnonce" value="stub">'; }
 function wp_nonce_url( $u, $a )       { return $u . '&_wpnonce=stub'; }
@@ -236,6 +238,38 @@ $xss = array_merge( Bssh_Plugin::defaults(), [
 $html3 = render( $xss );
 it( 'no live script tag reaches the page', false === strpos( $html3, '<script>alert(1)' ) );
 it( 'no textarea is closed early',         false === strpos( $html3, '"></textarea>' ) );
+
+echo "\n== the local development warning ==\n";
+
+// The reading that prompted this: on Local the server column is empty for every
+// header, which reads as "your host sends nothing" and invites switching things
+// on that the real host already handles.
+$GLOBALS['transients'][ Bssh_Admin::probe_key() ] = [
+    'ok' => true, 'static_url' => 'x', 'page_url' => 'y', 'local' => true,
+    'static' => [], 'page' => [], 'errors' => [], 'checked_at' => time(),
+];
+it( 'shows when the probe ran against a local site',
+    false !== strpos( render( Bssh_Plugin::defaults() ), 'This is a local development site' ) );
+
+$GLOBALS['transients'][ Bssh_Admin::probe_key() ]['local'] = false;
+it( 'hides on a real host',
+    false === strpos( render( Bssh_Plugin::defaults() ), 'This is a local development site' ) );
+
+// A result parked by 0.1.0 has no 'local' key at all.
+unset( $GLOBALS['transients'][ Bssh_Admin::probe_key() ]['local'] );
+it( 'a probe result saved by an older version does not fatal',
+    false === strpos( render( Bssh_Plugin::defaults() ), 'This is a local development site' ) );
+$GLOBALS['transients'] = [];
+
+echo "\n== is_local_host ==\n";
+foreach ( [ 'https://biscuit-bootstrap-dev.local' => true, 'https://foo.test' => true,
+            'http://localhost' => true, 'https://127.0.0.1' => true,
+            'https://georgiatrust.org' => false, 'https://notlocal.com' => false ] as $url => $want ) {
+    $GLOBALS['home'] = $url;
+    it( sprintf( '%-38s %s', $url, $want ? 'is local' : 'is not local' ),
+        $want === Bssh_Server_Check::is_local_host() );
+}
+$GLOBALS['home'] = 'https://example.test';
 
 echo "\n== the not-HTTPS warning ==\n";
 $GLOBALS['is_ssl'] = false;

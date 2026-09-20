@@ -65,6 +65,12 @@ class Bssh_Server_Check {
             'ok'         => false,
             'static_url' => '',
             'page_url'   => home_url( '/' ),
+            // Recorded so the screen can say plainly that a reading taken on a
+            // Local or staging box describes that box and not the client's
+            // host. Without it the server column reads as authoritative
+            // everywhere, and on Local it reports nothing at all, which invites
+            // exactly the wrong conclusion.
+            'local'      => self::is_local_host(),
             'static'     => [],
             'page'       => [],
             'errors'     => [],
@@ -184,8 +190,13 @@ class Bssh_Server_Check {
         return $found;
     }
 
-    /** Local development hostnames, where certificate checks are noise. */
-    private static function is_local_host(): bool {
+    /**
+     * Local development hostnames.
+     *
+     * Two callers, for two reasons: certificate checks are noise here, and a
+     * reading taken here says nothing about the production host.
+     */
+    public static function is_local_host(): bool {
         $host = strtolower( (string) wp_parse_url( home_url(), PHP_URL_HOST ) );
         foreach ( [ '.local', '.test', '.localhost', 'localhost', '127.0.0.1' ] as $suffix ) {
             if ( $host === $suffix || substr( $host, -strlen( $suffix ) ) === $suffix ) return true;
