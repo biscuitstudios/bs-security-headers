@@ -3,7 +3,7 @@
  * Plugin Name:       Security Headers
  * Plugin URI:        https://github.com/biscuitstudios/bs-security-headers
  * Description:       Sends the response security headers that managed hosts and WordPress leave off: Referrer-Policy, Permissions-Policy, X-Frame-Options, and optionally HSTS and a Content-Security-Policy. Shows what the server already sends so you can see what you are overriding.
- * Version:           0.1.1
+ * Version:           0.1.2
  * Requires at least: 6.3
  * Requires PHP:      8.2
  * Author:            Biscuit Studios
@@ -16,7 +16,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'BSSH_VERSION',  '0.1.1' );
+define( 'BSSH_VERSION',  '0.1.2' );
 define( 'BSSH_FILE',     __FILE__ );
 define( 'BSSH_DIR',      plugin_dir_path( __FILE__ ) );
 define( 'BSSH_URL',      plugin_dir_url( __FILE__ ) );
