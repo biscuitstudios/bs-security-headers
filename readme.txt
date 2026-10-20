@@ -1,10 +1,10 @@
-=== Security Headers ===
+=== Biscuit Security Headers ===
 Contributors: biscuitstudios
 Tags: security headers, csp, hsts, permissions policy, referrer policy
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,12 @@ as-is, with no support. Forks welcome.
 3. Activate. The three safe headers start sending straight away.
 
 == Changelog ==
+
+= 0.1.3 =
+* Change: the plugin is now listed as "Biscuit Security Headers" on the Plugins screen,
+  so Biscuit's own plugins sort together. It was "Security Headers". Nothing else
+  changed. The Settings menu still reads "Security Headers", and every setting
+  carries over.
 
 = 0.1.2 =
 * Security hardening: the updater now pins its download URL to this plugin's
